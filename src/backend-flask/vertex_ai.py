@@ -9,7 +9,7 @@ REGION = 'us-central1'
 BUCKET = 'bucket-course-project-417213'
 EMBEDDING_MODEL = "publishers/google/models/text-embedding-005"
 MODEL = 'gemini-1.5-flash-002'
-PATH = f"gs://{BUCKET}/guru"
+PATH = "guru"
 
 vertexai.init(project=PROJECT_ID, location=REGION)
 
@@ -26,7 +26,7 @@ except RuntimeError as e:
 # print(corpus)
 
 
-def list_txt_files(bucket_name, folder_path):
+def list_pdf_files(bucket_name, folder_path):
     """
     List all .pdf files in a specific folder of a GCS bucket.
     """
@@ -35,10 +35,13 @@ def list_txt_files(bucket_name, folder_path):
     blobs = bucket.list_blobs(prefix=folder_path)
     
     # Filter for .txt files
-    txt_files = [f"gs://{bucket_name}/{blob.name}" for blob in blobs if blob.name.endswith(".pdf")]
-    return txt_files
+    pdf_files = [f"gs://{bucket_name}/{blob.name}" for blob in blobs if blob.name.endswith(".pdf")]
 
-txt_files = list_txt_files(BUCKET, folder_path=PATH)
+    print(f"succesfully {len(pdf_files)} listed pdf files")
+
+    return pdf_files
+
+txt_files = list_pdf_files(BUCKET, folder_path=PATH)
 
 
 rag.import_files(
@@ -50,7 +53,7 @@ rag.import_files(
 
 rag_store = rag.VertexRagStore(
     rag_corpora=[corpus.name],
-    similarity_top_k=10,
+    similarity_top_k=5,
     vector_distance_threshold=0.5,
 )
 
@@ -61,4 +64,8 @@ llm = GenerativeModel(
     tools=[rag_retrieval_tool],
 )
 
-# llm.generate_content(query="your query here", max_length=1000)
+prompt = "What was the month with most expenses for me?"
+
+response = llm.generate_content(prompt)
+#return
+print(response.text)
