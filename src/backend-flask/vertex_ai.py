@@ -1,13 +1,15 @@
 import vertexai 
 
+from google.cloud import storage
 from vertexai.preview import rag
 from vertexai.preview.generative_models import GenerativeModel, Tool
 
 PROJECT_ID = 'course-project-417213'
 REGION = 'us-central1'
-BUCKET = 'your-bucket-name'
+BUCKET = 'bucket-course-project-417213'
 EMBEDDING_MODEL = "publishers/google/models/text-embedding-005"
 MODEL = 'gemini-1.5-flash-002'
+PATH = f"gs://{BUCKET}/guru"
 
 vertexai.init(project=PROJECT_ID, location=REGION)
 
@@ -21,4 +23,42 @@ except RuntimeError as e:
     print("Ensure the selected region supports Vertex AI RAG service.")
 
 
-print(corpus)
+# print(corpus)
+
+
+def list_txt_files(bucket_name, folder_path):
+    """
+    List all .pdf files in a specific folder of a GCS bucket.
+    """
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+    blobs = bucket.list_blobs(prefix=folder_path)
+    
+    # Filter for .txt files
+    txt_files = [f"gs://{bucket_name}/{blob.name}" for blob in blobs if blob.name.endswith(".pdf")]
+    return txt_files
+
+txt_files = list_txt_files(BUCKET, folder_path=PATH)
+
+
+rag.import_files(
+    corpus_name=corpus.name,
+    paths=txt_files,
+    chunk_size=512,
+    chunk_overlap=50,
+)
+
+rag_store = rag.VertexRagStore(
+    rag_corpora=[corpus.name],
+    similarity_top_k=10,
+    vector_distance_threshold=0.5,
+)
+
+rag_retrieval_tool = Tool.from_retrieval(retrieval=rag.Retrieval(source=rag_store))
+
+llm = GenerativeModel(
+    MODEL,
+    tools=[rag_retrieval_tool],
+)
+
+# llm.generate_content(query="your query here", max_length=1000)

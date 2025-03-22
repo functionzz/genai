@@ -5,7 +5,9 @@ name = "pypi"
 
 [packages]
 flask = "*"
+google-cloud-aiplatform = "*"
 vertexai = "*"
+reportlab = "*"
 
 [dev-packages]
 
