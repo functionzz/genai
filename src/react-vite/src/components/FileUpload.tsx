@@ -46,7 +46,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
     uploadMode = 'multi',
     defaultText = 'Select or drag and drop your files here',
     otherText = '(TXT, PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, JPEG and JPG up to 20MB)',
-    maxSize = 20 * 1024 * 1024, // 20MB
+    maxSize = 10 * 1024 * 1024, // 20MB
     acceptedFileTypes = {
         'application/pdf': ['.pdf'],
         'application/msword': ['.doc'],
