@@ -2,3 +2,4 @@ flask
 google-cloud-aiplatform
 vertexai
 reportlab
+google.cloud
