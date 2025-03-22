@@ -43,7 +43,10 @@ GuruApp is a hackathon project designed to provide users with an AI-powered fina
 
 ### Team
 
-* \[Your Team Members' Names]
+* Kelly Vergara [LinkedIn](https://www.linkedin.com/in/kellyvergarat/)
+* Jaimie 
+* Jorge Godiel [LinkedIn](https://www.linkedin.com/in/jorge-ronaldo-godiel-galvez-237000141/)
+* Shahhan Khan
 
 ### License
 
