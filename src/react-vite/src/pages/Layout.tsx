@@ -1,10 +1,56 @@
+import { Link, useLocation, Outlet } from "react-router-dom";
 
-function Layout() {
-    return (
-        <>
-            <h1>Layout</h1>
-        </>
-    )
-}
+const Layout = () => {
+  const location = useLocation();
+
+  // Navigation items
+  const navItems = [
+    { id: "chat", label: "Chat", path: "/chat" },
+    { id: "storage", label: "Storage", path: "/storage" },
+    { id: "uploads", label: "Uploads", path: "/uploads" },
+  ];
+
+  // Helper to check if a path is active
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
+  return (
+    <div className="flex flex-col h-screen overflow-hidden">
+      {/* Logo Header */}
+      <div className="h-16 border-b flex justify-end items-center p-4">
+        <div className="bg-amber-500 rounded-full px-4 py-2 flex items-center justify-center">
+          <span className="font-bold text-black">GuruUp</span>
+        </div>
+      </div>
+      
+      <div className="flex flex-1 bg-white overflow-hidden">
+        {/* Navigation Sidebar */}
+        <div className="w-64 border-r border-gray-200 overflow-y-auto">
+          <div className="flex flex-col">
+            {navItems.map((item) => (
+              <Link key={item.id} to={item.path} className="no-underline">
+                <div
+                  className={`p-4 border-b cursor-pointer ${
+                    isActive(item.path)
+                      ? "bg-amber-500 text-black"
+                      : "hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="font-medium">{item.label}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Main Content Area */}
+        <div className="flex-1 p-6 overflow-y-auto">
+          <Outlet />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Layout;
