@@ -5,11 +5,11 @@ import os
 upload_bp = Blueprint('upload', __name__)
 
 # Google Cloud Storage settings
-BUCKET_NAME = 'your-bucket-name'  # Replace with your GCS bucket name
+BUCKET_NAME = 'bucket-course-project-417213'  # Replace with your GCS bucket name
 SERVICE_ACCOUNT_KEY_PATH = 'service-account-key.json'  # Path to your service account key file
 
 # Allowed file extensions
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'xlsx', '.docx', 'jpeg'}
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'xlsx', 'docx', 'jpeg'}
 
 # Initialize the GCS client
 storage_client = storage.Client.from_service_account_json(SERVICE_ACCOUNT_KEY_PATH)
