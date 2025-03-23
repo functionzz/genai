@@ -2,6 +2,9 @@
 
 ![alt logo](image.png)
 
+demo video: 
+https://youtu.be/GPBC_SZwFl8
+
 ## Overview
 
 GuruApp is an AI-powered financial assistant designed to help students, professors, intrapreneurs, and small businesses manage their finances without needing extensive accounting knowledge. Users can upload financial documents (utility bills, receipts, etc.) and chat with the app to gain insights, analyze expenses, and get personalized financial advice. The platform uses Google Cloud Functions, Vertex AI, and a simplified React frontend to provide an intuitive experience for organizing and understanding your financial data.
