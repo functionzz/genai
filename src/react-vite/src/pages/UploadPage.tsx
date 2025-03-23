@@ -33,6 +33,7 @@ function UploadPage() {
     
     console.log("All uploads completed in order");
     setFiles([]);
+    window.location.reload(); // Refresh the page to reflect changes
   };
 
   return (
