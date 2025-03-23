@@ -1,6 +1,7 @@
 from flask import Flask
 from upload_route import upload_bp 
 from storage_route import storage_bp
+from gemini_route import prompt_bp
 from flask_cors import CORS
 
 app = Flask(__name__)

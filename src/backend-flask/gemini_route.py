@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from vertex_ai import main
 
-prompt_bp = Blueprint('upload', __name__)
+prompt_bp = Blueprint('prompt', __name__)
 
 @prompt_bp.route('/prompt', methods=['POST'])
 def rag_query():
