@@ -38,7 +38,7 @@ Below is a brief overview of the mockup images located in the `imgs/` folder, al
 ![Extended Chat Explanation](./imgs/chat3.jpg)
 
 **Description:**  
-- Continues the conversation with more in-depth commentary on financial data, possibly pointing out cost variances or profit margins.  
+- Continues the conversation with more in depth commentary on financial data, possibly pointing out cost variances or profit margins.  
 - The AI provides a short conclusion or recommendation, e.g., “Consider examining the drivers behind the increased income to maintain profitability.”  
 - Highlights how the assistant can give a concise yet explanatory overview of the findings.
 
@@ -48,9 +48,9 @@ Below is a brief overview of the mockup images located in the `imgs/` folder, al
 ![Storage View](./imgs/Storage.jpg)
 
 **Description:**  
-- Represents how files are managed within the app—possibly showing a table with columns for file status, email (if shared), or amounts.  
+- Represents how files are managed within the app possibly showing a table with columns for file status, email (if shared), or amounts.  
 - Allows filtering, viewing the current files in storage, or performing other organizational tasks (e.g., delete, rename).  
-- Reinforces the “one-stop” nature of Guru App by combining both chat functionality and file management in a single interface.
+- Reinforces the “one stop” nature of Guru App by combining both chat functionality and file management in a single interface.
 
 ---
 

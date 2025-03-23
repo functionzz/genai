@@ -9,7 +9,7 @@ Guruup is a platform designed to help you organize your finances, make better de
 It is especially useful for entrepreneurs or small businesses who need to navigate all their documents without endless searching, and for professionals who want to view their expenses and upcoming payments at a glance. 
 
 You might ask: 
-- When does my auto policy expire?
+- In which month I spend more?
 - How much did I pay in credit card interest last month?
 - am I paying for duplicate services like internet and streaming?
 
