@@ -6,8 +6,10 @@ const Layout = () => {
   // Navigation items
   const navItems = [
     { id: "chat", label: "Chat", path: "/chat" },
+    { id: "analysis", label: "Saved Analysis", path: "/analysis"},
     { id: "storage", label: "Storage", path: "/storage" },
     { id: "uploads", label: "Uploads", path: "/uploads" },
+    { id: "profile", label: "Profile", path: "/profile"}
   ];
 
   // Helper to check if a path is active
@@ -26,7 +28,7 @@ const Layout = () => {
       
       <div className="flex flex-1 bg-white overflow-hidden">
         {/* Navigation Sidebar */}
-        <div className="w-64 border-r border-gray-200 overflow-y-auto">
+        <div className="w-50 border-r border-gray-200 overflow-y-auto">
           <div className="flex flex-col">
             {navItems.map((item) => (
               <Link key={item.id} to={item.path} className="no-underline">
