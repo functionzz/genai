@@ -71,7 +71,17 @@ export const columns: ColumnDef<FileData>[] = [
   },
   {
     accessorKey: "file_name",
-    header: "File Name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          File Name
+          <ArrowUpDown />
+        </Button>
+      )
+    },
     cell: ({ row }) => <div>{row.getValue("file_name")}</div>,
   },
   {
@@ -177,6 +187,39 @@ export function StoragePage() {
     },
   });
 
+  // Function to delete selected files
+  const deleteSelectedFiles = async () => {
+    const selectedFiles = table
+      .getFilteredSelectedRowModel()
+      .rows.map((row) => row.original.file_name);
+
+    if (selectedFiles.length === 0) {
+      alert("No files selected");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/delete-files", {
+        method: "DELETE", // Use DELETE method
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ file_names: selectedFiles }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete files");
+      }
+
+      // Refresh the file list after deletion
+      const result = await response.json();
+      alert(result.message);
+      window.location.reload(); // Refresh the page to reflect changes
+    } catch (err) {
+      alert("Failed to delete");
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -197,32 +240,6 @@ export function StoragePage() {
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
       </div>
       <div className="rounded-md border">
         <Table>
@@ -279,6 +296,14 @@ export function StoragePage() {
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
+        <Button
+          variant="destructive"
+          size="sm"
+          onClick={deleteSelectedFiles}
+          disabled={table.getFilteredSelectedRowModel().rows.length === 0}
+        >
+          Delete Selected
+        </Button>
         <div className="space-x-2">
           <Button
             variant="outline"
