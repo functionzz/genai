@@ -8,8 +8,7 @@ CORS(app)  # This enables CORS for all routes
 
 app.register_blueprint(upload_bp)
 app.register_blueprint(storage_bp)
-# app.register_blueprint(upload_bp, url_prefix='/api')  # Optional: Add a URL prefix like '/api'
-
+app.register_blueprint(prompt_bp)
 
 if __name__ == '__main__':
     app.run(debug=True)
