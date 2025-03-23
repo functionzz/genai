@@ -32,17 +32,37 @@ function ChatPage() {
   const handleFetch = async () => {
     setLoading(true); // Disable components
     try {
+
+      // const response = await fetch("http://127.0.0.1:5000/delete-files", {
+      //   method: "DELETE", // Use DELETE method
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ file_names: selectedFiles }),
+      // });
+      
       const response = await fetch(
-        "https://jsonplaceholder.typicode.com/todos/1"
+        "http://127.0.0.1:5000/prompt", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: inputValue }),
+        }
       );
-      // const newMessage = await response.json();
-      const newMessage = {
-        id: messages.length + 1,
-        response:
-          "1️⃣ Steady Revenue Growth – Our business has seen a consistent increase in revenue over the past year, reflecting strong customer demand and strategic expansion efforts. 2️⃣ Profit Margins on the Rise – By optimizing operations and cutting unnecessary expenses, we’ve successfully increased our profit margins, ensuring long-term sustainability. 3️⃣ Smart Investments – Investing in the right tools, technology, and marketing strategies has led to higher returns and improved efficiency, fueling business growth. 4️⃣ Breaking Even & Beyond – What started as a vision has now turned into a profitable venture. We hit our break-even point ahead of schedule and are now generating solid profits.",
-        citation: "hi there",
-        role: "bot",
-      };
+
+      if (!response.ok) {
+        throw new Error("Failed to delete files");
+      }
+
+      const newMessage = await response.json();
+      // const newMessage = {
+      //   id: messages.length + 1,
+      //   response:
+      //     "1️⃣ Steady Revenue Growth – Our business has seen a consistent increase in revenue over the past year, reflecting strong customer demand and strategic expansion efforts. 2️⃣ Profit Margins on the Rise – By optimizing operations and cutting unnecessary expenses, we’ve successfully increased our profit margins, ensuring long-term sustainability. 3️⃣ Smart Investments – Investing in the right tools, technology, and marketing strategies has led to higher returns and improved efficiency, fueling business growth. 4️⃣ Breaking Even & Beyond – What started as a vision has now turned into a profitable venture. We hit our break-even point ahead of schedule and are now generating solid profits.",
+      //   citation: "hi there",
+      //   role: "bot",
+      // };
       setMessages((messages) => [...messages, newMessage]);
     } catch (error) {
       console.error("Fetch error:", error);
@@ -65,8 +85,8 @@ function ChatPage() {
       },
     ]);
     console.log(messages);
-    setInputValue("");
     handleFetch();
+    setInputValue("");
     console.log(messages);
   };
 
