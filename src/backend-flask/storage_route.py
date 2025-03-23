@@ -23,7 +23,11 @@ def list_files():
             if not blob.name.endswith('/'):  # Skip "folder" objects
                 files.append({
                     "file_name": blob.name.replace('guru/', ''),  # Remove the folder prefix
-                    "public_url": blob.public_url
+                    "public_url": blob.public_url,
+                    "size": blob.size,  # File size in bytes
+                    "file_type": blob.name.split('.')[-1].lower(),  # Extract file extension
+                    "creation_time": blob.time_created.strftime('%Y-%m-%d %H:%M:%S'),  # Creation time
+                    "update_time": blob.updated.strftime('%Y-%m-%d %H:%M:%S')  # Last update time
                 })
 
         return jsonify({
