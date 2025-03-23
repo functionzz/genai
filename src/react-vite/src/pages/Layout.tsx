@@ -14,7 +14,8 @@ const Layout = () => {
   ];
 
   // Helper to check if a path is active
-  const isActive = (path) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const isActive = (path: any) => {
     return location.pathname === path;
   };
 

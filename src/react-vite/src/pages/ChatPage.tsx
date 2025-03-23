@@ -52,7 +52,7 @@ function ChatPage() {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to delete files");
+        throw new Error("Failed to Call Prompt");
       }
 
       const newMessage = await response.json();

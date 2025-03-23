@@ -6,16 +6,17 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
 
 function UploadPage() {
-  const [url, setUrl] = useState<string>("");
   const [files, setFiles] = useState<File[]>([]);
 
-  const handleFilesUploaded = (newFiles) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleFilesUploaded = (newFiles: any) => {
     console.log("Uploaded files:", newFiles);
     setFiles((files) => [...files, ...newFiles]);
   };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log(files);
+    console.log(e);
 
     for (let i = 0; i < files.length; i++) {
       const formData = new FormData();
@@ -26,8 +27,10 @@ function UploadPage() {
         body: formData,
       });
 
-      const responseWithBody = await response.json();
-      if (response) setUrl(responseWithBody.publicUrl);
+      if (!response.ok) {
+        throw new Error("Failed to Upload");
+      }
+
     }
 
     console.log("All uploads completed in order");
