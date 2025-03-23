@@ -34,7 +34,7 @@ def upload_file():
 
     try:
         # Upload the file to GCS
-        blob = bucket.blob(file.filename)
+        blob = bucket.blob(f"guru/{file.filename}")
         blob.upload_from_file(file)
 
         # Get the public URL of the uploaded file
