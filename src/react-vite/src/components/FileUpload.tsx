@@ -45,7 +45,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
     layout = 'vertical',
     uploadMode = 'multi',
     defaultText = 'Select or drag and drop your files here',
-    otherText = '(TXT, PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, JPEG and JPG up to 20MB)',
+    otherText = '(TXT, PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX and JPEG up to 20MB)',
     maxSize = 10 * 1024 * 1024, // 20MB
     acceptedFileTypes = {
         'application/pdf': ['.pdf'],
@@ -56,7 +56,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
         'application/vnd.ms-powerpoint': ['.ppt'],
         'application/vnd.openxmlformats-officedocument.presentationml.presentation': ['.pptx'],
         'txt/plain': ['.txt'],
-        'image/jpeg': ['.jpeg', '.jpg'],
+        'image/jpeg': ['.jpeg'],
     },
     onFilesUploaded,
     zodSchema,
