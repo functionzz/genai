@@ -9,7 +9,6 @@ function UploadPage() {
   const [url, setUrl] = useState<string>("");
   const [files, setFiles] = useState<File[]>([]);
 
-  
   const handleFilesUploaded = (newFiles) => {
     console.log("Uploaded files:", newFiles);
     setFiles((files) => [...files, ...newFiles]);
@@ -17,7 +16,7 @@ function UploadPage() {
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log(files);
-    
+
     for (let i = 0; i < files.length; i++) {
       const formData = new FormData();
 
@@ -30,7 +29,7 @@ function UploadPage() {
       const responseWithBody = await response.json();
       if (response) setUrl(responseWithBody.publicUrl);
     }
-    
+
     console.log("All uploads completed in order");
     setFiles([]);
     window.location.reload(); // Refresh the page to reflect changes
@@ -38,12 +37,22 @@ function UploadPage() {
 
   return (
     <ScrollArea>
-      <div className="flex items-center justify-center h-full p-6">
-        <Card className="w-full max-w-lg p-6">
-          <h2 className="text-2xl font-medium mb-4">Upload your Files Here</h2>
-          <FileUpload onFilesUploaded={handleFilesUploaded} />
-          <Button onClick={handleSubmit}>Submit</Button>
-        </Card>
+      <div className="w-full p-4">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">Uploads</h1>
+          <p className="text-gray-600">
+            Update your financial data for Gemini integration.
+          </p>
+        </div>
+        <div className="flex items-center justify-center h-full p-6">
+          <Card className="w-full max-w-lg p-6">
+            <h2 className="text-2xl font-medium mb-4">
+              Upload your Files Here
+            </h2>
+            <FileUpload onFilesUploaded={handleFilesUploaded} />
+            <Button onClick={handleSubmit}>Submit</Button>
+          </Card>
+        </div>
       </div>
     </ScrollArea>
   );

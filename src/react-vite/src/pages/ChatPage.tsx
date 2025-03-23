@@ -39,7 +39,7 @@ function ChatPage() {
       const newMessage = {
         id: messages.length + 1,
         response:
-          "you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great",
+          "1️⃣ Steady Revenue Growth – Our business has seen a consistent increase in revenue over the past year, reflecting strong customer demand and strategic expansion efforts. 2️⃣ Profit Margins on the Rise – By optimizing operations and cutting unnecessary expenses, we’ve successfully increased our profit margins, ensuring long-term sustainability. 3️⃣ Smart Investments – Investing in the right tools, technology, and marketing strategies has led to higher returns and improved efficiency, fueling business growth. 4️⃣ Breaking Even & Beyond – What started as a vision has now turned into a profitable venture. We hit our break-even point ahead of schedule and are now generating solid profits.",
         citation: "hi there",
         role: "bot",
       };
@@ -75,11 +75,17 @@ function ChatPage() {
     <>
       <ScrollArea className="h-[63vh] w-full rounded-md border p-4">
         <ChatMessageList>
+          <ChatBubble variant="received">
+            <ChatBubbleAvatar fallback="GU" />
+            <ChatBubbleMessage variant="received">
+              Hey There, I'm Guru ~ how can I assist your financial goals today?
+            </ChatBubbleMessage>
+          </ChatBubble>
           {messages.map((message, index) => (
             <ChatBubble variant={message.role == "user" ? "sent" : "received"}>
               <ChatBubbleAvatar
                 src=""
-                fallback={message.role == "user" ? "US" : "AI"}
+                fallback={message.role == "user" ? "ME" : "GU"}
               />
               <ChatBubbleMessage
                 variant={message.role == "user" ? "sent" : "received"}
@@ -102,13 +108,12 @@ function ChatPage() {
         onSubmit={handleSubmit}
       >
         <ChatInput
-          placeholder="Type your message here..."
+          placeholder="Gain financial insights here..."
           className="min-h-12 resize-none rounded-lg bg-background border-0 p-3 shadow-none focus-visible:ring-0 "
           disabled={loading}
           onChange={(e) => setInputValue(e.target.value)}
         />
         <div className="flex items-center p-3 pt-0">
-
           <Button
             size="sm"
             className="ml-auto gap-1.5"

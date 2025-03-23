@@ -231,7 +231,10 @@ export function StoragePage() {
 
   return (
     <div className="w-full p-4">
-      <h1 className="text-2xl font-bold mb-4">Storage Page</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-800">Storage</h1>
+        <p className="text-gray-600">Organize your financial documents for LLM processing.</p>
+      </div>
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter file names..."
