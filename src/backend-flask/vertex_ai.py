@@ -1,12 +1,17 @@
 import vertexai 
 from google.cloud import storage
+from google.oauth2 import service_account
 from vertexai.preview import rag
 from vertexai.preview.generative_models import GenerativeModel, Tool
 import uuid
 import os
+import json
+
+from credentials import storage_client
 
 # Constants
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "service-account-key.json"
+
 PROJECT_ID = 'course-project-417213'
 REGION = 'us-central1'
 BUCKET = 'bucket-course-project-417213'
