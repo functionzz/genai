@@ -152,6 +152,7 @@ export function StoragePage() {
         setData(result.files);
         setLoading(false);
       } catch (err) {
+        console.log(err);
         setError("Failed to fetch files");
         setLoading(false);
       }

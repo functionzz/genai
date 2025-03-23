@@ -8,7 +8,8 @@ import {
 import { ChatInput } from "@/components/ui/chat/chat-input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect, useRef } from "react";
+import { Typewriter } from "react-simple-typewriter";
 
 interface Message {
   id: number;
@@ -18,14 +19,15 @@ interface Message {
 }
 
 function ChatPage() {
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  
-  //   return jsonify({
-  //     "response": response_text,
-  //     "citations": citations
-  // })
+
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]); // Runs when messages update
 
   const handleFetch = async () => {
     setLoading(true); // Disable components
@@ -36,11 +38,12 @@ function ChatPage() {
       // const newMessage = await response.json();
       const newMessage = {
         id: messages.length + 1,
-        response: "you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great",
+        response:
+          "you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great you are great",
         citation: "hi there",
         role: "bot",
       };
-      setMessages((messages) => [...messages, newMessage,]);
+      setMessages((messages) => [...messages, newMessage]);
     } catch (error) {
       console.error("Fetch error:", error);
     } finally {
@@ -51,15 +54,21 @@ function ChatPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-
     console.log(messages);
-    setMessages((messages) => [...messages, { id: messages.length + 1, response: inputValue, citation: "", role: 'user' },]);
+    setMessages((messages) => [
+      ...messages,
+      {
+        id: messages.length + 1,
+        response: inputValue,
+        citation: "",
+        role: "user",
+      },
+    ]);
     console.log(messages);
     setInputValue("");
     handleFetch();
     console.log(messages);
   };
-
 
   return (
     // Wrap with ChatMessageList
@@ -67,14 +76,25 @@ function ChatPage() {
       <ScrollArea className="h-[63vh] w-full rounded-md border p-4">
         <ChatMessageList>
           {messages.map((message, index) => (
-            <ChatBubble variant={message.role == 'user' ? 'sent' : 'received'}>
-              <ChatBubbleAvatar src="" fallback={message.role == 'user' ? 'US' : 'AI'} />
-              <ChatBubbleMessage variant={message.role == 'user' ? 'sent' : 'received'} isLoading={loading && message.role == 'bot'}>
-                {message.response}
+            <ChatBubble variant={message.role == "user" ? "sent" : "received"}>
+              <ChatBubbleAvatar
+                src=""
+                fallback={message.role == "user" ? "US" : "AI"}
+              />
+              <ChatBubbleMessage
+                variant={message.role == "user" ? "sent" : "received"}
+                isLoading={loading && message.role == "bot"}
+              >
+                {message.role === "bot" && messages.length - 1 === index ? (
+                  <Typewriter words={[message.response]} typeSpeed={5} />
+                ) : (
+                  message.response
+                )}
               </ChatBubbleMessage>
             </ChatBubble>
           ))}
         </ChatMessageList>
+        <div ref={bottomRef} /> {/* Invisible div at the bottom */}
       </ScrollArea>
 
       <form
@@ -88,12 +108,13 @@ function ChatPage() {
           onChange={(e) => setInputValue(e.target.value)}
         />
         <div className="flex items-center p-3 pt-0">
-          {/* <Button variant="ghost" size="icon">
-        <Paperclip className="size-4" />
-        <span className="sr-only">Attach file</span>
-      </Button> */}
 
-          <Button size="sm" className="ml-auto gap-1.5" type="submit" disabled={loading}>
+          <Button
+            size="sm"
+            className="ml-auto gap-1.5"
+            type="submit"
+            disabled={loading || inputValue.length === 0}
+          >
             Send Message
             {/* <CornerDownLeft className="size-3.5" /> */}
           </Button>
