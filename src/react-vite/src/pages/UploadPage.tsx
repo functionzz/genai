@@ -10,21 +10,19 @@ function UploadPage() {
   const [files, setFiles] = useState<File[]>([]);
 
   
-  const handleFilesUploaded = (files) => {
-    console.log("Uploaded files:", files);
-    setFiles(files);
+  const handleFilesUploaded = (newFiles) => {
+    console.log("Uploaded files:", newFiles);
+    setFiles((files) => [...files, ...newFiles]);
   };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-
     console.log(files);
     
-
     for (let i = 0; i < files.length; i++) {
       const formData = new FormData();
 
       formData.append("file", files[i]);
-      const response = await fetch(import.meta.env.VITE_FLASK_URL + "/upload", {
+      const response = await fetch("http://127.0.0.1:5000/upload", {
         method: "POST",
         body: formData,
       });
@@ -33,6 +31,8 @@ function UploadPage() {
       if (response) setUrl(responseWithBody.publicUrl);
     }
     
+    console.log("All uploads completed in order");
+    setFiles([]);
   };
 
   return (

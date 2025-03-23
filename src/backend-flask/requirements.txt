@@ -1,3 +1,9 @@
+flask
+google-cloud-aiplatform
+vertexai
+reportlab
+google.cloud
+flask-cors
 attrs==23.1.0
 colorama==0.4.6
 distlib==0.3.8

@@ -1,7 +1,10 @@
 from flask import Flask
-from upload_route import upload_bp  # Replace 'your_file_name' with the name of your Python file
+from upload_route import upload_bp 
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # This enables CORS for all routes
+
 app.register_blueprint(upload_bp)
 # app.register_blueprint(upload_bp, url_prefix='/api')  # Optional: Add a URL prefix like '/api'
 

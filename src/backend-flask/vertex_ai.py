@@ -68,4 +68,4 @@ prompt = "What was the month with most expenses for me?"
 
 response = llm.generate_content(prompt)
 #return
-print(response.text)
+print(response)
